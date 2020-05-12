@@ -34,7 +34,8 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN npm install -g less less-plugin-clean-css -y
 
 RUN curl -SsLO https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb && \
-    apt-get install -f ./wkhtmltox_0.12.5-1.bionic_amd64.deb
+    apt-get install -f ./wkhtmltox_0.12.5-1.bionic_amd64.deb && \
+    rm -rf ./wkhtmltox_0.12.5-1.bionic_amd64.deb
 
 # install CI tools
 RUN pip3 install coverage coveralls codecov simplejson pyserial pyyaml unittest2 pyopenssl>=16.2.0 \

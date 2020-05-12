@@ -21,9 +21,7 @@ ENV PASSWORD=$ARG_DB_PASSWORD
 
 USER root
 RUN mkdir -p /var/log/flectra && \
-    chown -R flectra:flectra /var/log/flectra/ && \
-    mkdir -p /mnt/extra-addons && \
-    chown -R flectra:flectra /mnt/extra-addons
+    chown -R flectra:flectra /var/log/flectra/
 
 RUN locale-gen --purge en_US.UTF-8 && \
     dpkg-reconfigure --frontend=noninteractive locales && \
@@ -47,15 +45,12 @@ RUN cd /opt/flectra && \
     mv flectra ../. && \
     mv flectra-bin ../. && \
     cd /opt/flectra && \
-    rm -rf flectra-${GITLAB_COMMIT}
-
-# Mount /var/lib/flectra to allow restoring filestore and /mnt/extra-addons for users addons
-VOLUME ["/var/lib/flectra", "/mnt/extra-addons"]
+    rm -rf flectra-${GITLAB_COMMIT} && rm *.tar.gz
 
 EXPOSE 7073 7072
 
  # Set the default config file
-ENV FLECTRA_RC /etc/flectra/flectra.conf
+ENV FLECTRA_RC=/etc/flectra/flectra.conf
 
 ADD entrypoint.sh /opt/flectra/entrypoint.sh
 
