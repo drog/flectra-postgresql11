@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:eoan
 
 LABEL maintainer="FlectraHQ <flectra@flectrahq.com>"
 LABEL authors="FlectraHQ,Jamotion"
@@ -8,12 +8,7 @@ ARG POSTGRESQL_VERSION=11
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install wget gnupg2 lsb-core -y && \
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    RELEASE=$(lsb_release -cs) && \
-    echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | tee  /etc/apt/sources.list.d/pgdg.list && \
-    apt-get update && \
-    apt-get install --no-install-recommends git python3 curl expect-dev node-less \
+    apt-get install --no-install-recommends build-essential wget gnupg2 git python3 curl expect-dev node-less \
     python3-pillow python3-lxml python-ldap3 python3-dev python3-pip python3-setuptools python3-passlib \
     postgresql-${POSTGRESQL_VERSION} postgresql-server-dev-${POSTGRESQL_VERSION} \
     fontconfig libxfont2 xfonts-encodings xfonts-utils xfonts-base xfonts-75dpi \
